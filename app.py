@@ -50,43 +50,37 @@ with col1:
 
 with col2:
     uploaded_file = st.file_uploader(
-        "", 
-        type=["jpg", "jpeg", "png"], 
-        accept_multiple_files=False, 
+        "",
+        type=["jpg", "jpeg", "png"],
+        accept_multiple_files=False,
         key="file_uploader",
         help="Drag and drop image here"  # Using help to display drag instruction
     )
 
     if uploaded_file is not None:
-        st.write("File successfully loaded!")
-        
+        st.write("✅ File successfully loaded!")
+
         try:
-            # Convert the uploaded file to bytes
-            bytes_data = uploaded_file.getvalue()
-            
             # Open the image using PIL
-            image = Image.open(io.BytesIO(bytes_data))
-            
+            image = Image.open(uploaded_file)
+
             # Display the image
             st.image(image, width=200)
-            
-            # Convert the image to a numpy array
-            img_array = np.array(image)
-            
-            # Prepare the parameters for the API request
-            params = {'image_array': img_array.tolist()}
-            
-            # Send the request to the API
-            streamly_url = 'http://127.0.0.1:8000/predict'
-            response = requests.post(streamly_url, json=params)
-            
-            # Check the response status code
+
+            # Convert image to bytes
+            image_bytes = uploaded_file.getvalue()
+
+            # Send the image as a file, not JSON
+            files = {"file": image_bytes}
+            response = requests.post('http://localhost:8000/predict', files=files)
+
+            # Check the response status
             if response.status_code == 200:
                 output = response.json()
-                st.write("API Response:", output)
+                st.write("**AI Prediction:**", output)
             else:
                 st.write(f"Error: {response.status_code}")
                 st.write(f"Response: {response.text}")
-        
+
         except Exception as e:
-            st.write(f"An error occurred: {e}")
+            st.write(f"⚠️ An error occurred: {e}")
