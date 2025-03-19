@@ -72,7 +72,7 @@ with col2:
 
             # Send the image as a file, not JSON
             files = {"file": image_bytes}
-            response = requests.post('http://localhost:8000/predict', files=files)
+            response = requests.post('https://smearly-103125804301.europe-west1.run.app/predict', files=files)
 
             # Check the response status
             if response.status_code == 200:
