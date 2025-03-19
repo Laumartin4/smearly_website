@@ -103,3 +103,12 @@ if uploaded_file is not None:
         else:
             st.error(f"Error: {response.status_code}")
             st.error(f"Response: {response.text}")
+
+st.markdown("""
+    <hr>
+    <p style='text-align: center; font-size: 12px; font-style: italic;'>This software is an AI-based tool designed to assist in the detection of unhealthy pap smear cells. \
+        It does not constitute a medical diagnosis and does not replace the evaluation of a qualified healthcare professional. \
+        The software publisher disclaims any liability for errors, omissions, or technical malfunctions. \
+        The user is solely responsible for interpreting the results and making clinical decisions based on them. </p>
+
+""", unsafe_allow_html=True)
