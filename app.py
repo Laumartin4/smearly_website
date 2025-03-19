@@ -4,7 +4,9 @@ import numpy as np
 from PIL import Image
 import io
 
-"""This front queries the Streamly API http://127.0.0.1:8000"""
+# This front queries the Streamly API:
+# - http://127.0.0.1:8000
+# - https://smearly-103125804301.europe-west1.run.app/predict
 
 # Inject custom CSS to change the background color and text color
 
